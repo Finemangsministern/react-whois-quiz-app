@@ -28,6 +28,19 @@
   color: #61dafb;
 }
 
+label, button {
+  color: #FF9900;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  margin-left: 40px;
+  }
+input {
+  color: #232F3E;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  margin-left: 20px;
+  }
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
