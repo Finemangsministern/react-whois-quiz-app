@@ -1,55 +1,69 @@
 import logo from './logo.svg';
 import './App.css';
+import React from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          <h1>Hej hej hej!</h1>
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <h1>Quiznödig</h1>
+  
+          <form>
+            <label>Ditt namn:</label>
+            <input type="text" id="name"/>
+            <br/>
+            <label>Vem där #:  </label>
+            <select id="quiz-number">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+            <br/>
+            <label>Vem är det:</label>
+            <input type="text" id="answer"/>
+            <br/>
+            <button type="button" 
+              onClick={() => this.callAPI(document.getElementById('name').value,document.getElementById('quiz-number').value,document.getElementById('answer').value)} 
+            >
+              Skicka svar
+            </button>
+          </form>
+        </header>    
+      </div>
+    );
+  }
 
-      <form>
-        <label>First Name :</label>
-        <input type="text" id="fName"/>
-        <label>Last Name :</label>
-        <input type="text" id="lName"/>
-        <button type="button" onclick="callAPI(document.getElementById('fName').value,document.getElementById('lName').value)">Call API</button>
-    </form>
-    </div>
-  );
+  // define the callAPI function that takes a first name and last name as parameters
+  callAPI(name,quizNumber,answer) {
+    // instantiate a headers object
+    var myHeaders = new Headers();
+    // add content type header to object
+    myHeaders.append("Content-Type", "application/json");
+    // using built in JSON utility package turn object to string and store in a variable
+    var raw = JSON.stringify({"name":name,"quizNumber":quizNumber,"answer":answer});
+    // create a JSON object with parameters for API call and store in a variable
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+    // make API call with parameters and use promises to get response
+    fetch("https://fuzb5skoof.execute-api.eu-north-1.amazonaws.com/dev", requestOptions)
+    .then(response => response.text())
+    .then(result => {
+      alert(JSON.parse(result).body);
+      document.getElementById('answer').value = "";
+    })
+    .catch(error => console.log('error', error));
+  }
+
 }
 
-// define the callAPI function that takes a first name and last name as parameters
-var callAPI = (firstName,lastName)=>{
-  // instantiate a headers object
-  var myHeaders = new Headers();
-  // add content type header to object
-  myHeaders.append("Content-Type", "application/json");
-  // using built in JSON utility package turn object to string and store in a variable
-  var raw = JSON.stringify({"firstName":firstName,"lastName":lastName});
-  // create a JSON object with parameters for API call and store in a variable
-  var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-  };
-  // make API call with parameters and use promises to get response
-  fetch("https://fuzb5skoof.execute-api.eu-north-1.amazonaws.com/dev", requestOptions)
-  .then(response => response.text())
-  .then(result => alert(JSON.parse(result).body))
-  .catch(error => console.log('error', error));
-}
+  
+
+
 
 export default App;
