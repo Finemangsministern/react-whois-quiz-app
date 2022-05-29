@@ -24,11 +24,13 @@ class App extends React.Component {
             <label>Vem är det:</label>
             <input type="text" id="answer"/>
             <br/>
-            <button type="button" 
-              onClick={() => this.callAPI(document.getElementById('name').value,document.getElementById('quiz-number').value,document.getElementById('answer').value)} 
-            >
-              Skicka svar
-            </button>
+            <div class="center">
+              <button type="button" 
+                onClick={() => this.callAPI(document.getElementById('name').value,document.getElementById('quiz-number').value,document.getElementById('answer').value)} 
+              >
+                Skicka svar
+              </button>
+            </div>
           </form>
         </header>    
       </div>
