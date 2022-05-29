@@ -10,20 +10,23 @@ class App extends React.Component {
           <h1>Quiznödig</h1>
   
           <form>
-            <label>Ditt namn:</label>
-            <input type="text" id="name"/>
-            <br/>
-            <label>Vem där #:  </label>
-            <select id="quiz-number">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-            </select>
-            <br/>
-            <label>Vem är det:</label>
-            <input type="text" id="answer"/>
-            <br/>
+            <div class="group">
+              <label>Ditt namn</label>
+              <input type="text" id="name"/>
+            </div>
+            <div class="group">
+              <label>Vem där #</label>
+              <select id="quiz-number">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+            </div>
+            <div class="group">
+              <label>Svar</label>
+              <input type="text" id="answer"/>
+            </div>
             <div class="center">
               <button type="button" 
                 onClick={() => this.callAPI(document.getElementById('name').value,document.getElementById('quiz-number').value,document.getElementById('answer').value)} 
